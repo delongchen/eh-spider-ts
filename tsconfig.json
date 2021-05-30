@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "allowUnreachableCode": true, // 不报告执行不到的代码错误。
+    "allowUnusedLabels": false,	// 不报告未使用的标签错误
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "removeComments": true,
+    "types": [
+      "node"
+    ],
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "target": "ESNext",
+    "declaration": true,
+    "allowJs": true,
+    "lib": [
+      "esnext",
+      "dom"
+    ]
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
