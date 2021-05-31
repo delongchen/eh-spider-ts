@@ -5,12 +5,22 @@
   "license": "MIT",
   "scripts": {
     "dev-build": "rollup -c",
-    "dev": "yarn run dev-build && node ./dist/app.js"
+    "dev": "yarn run dev-build && node ./dist/app.js",
+    "test": "ts-node src/main.ts"
   },
   "dependencies": {
     "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
+    "@types/cheerio": "^0.22.29",
+    "@types/koa": "^2.13.3",
     "@types/node": "^15.6.1",
+    "@types/node-fetch": "^2.5.10",
+    "@types/redis": "^2.8.29",
+    "cheerio": "^1.0.0-rc.9",
+    "koa": "^2.13.1",
+    "node-fetch": "^2.6.1",
+    "redis": "^3.1.2",
     "rollup": "^2.50.4",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-typescript": "^1.0.1",

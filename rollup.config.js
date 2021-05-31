@@ -2,6 +2,7 @@ import typescript from "rollup-plugin-typescript";
 import commonjs from "@rollup/plugin-commonjs";
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import builtins from 'rollup-plugin-node-builtins'
+import json from "@rollup/plugin-json";
 
 export default {
   input: 'src/main.ts',
@@ -13,6 +14,7 @@ export default {
     nodeResolve({ preferBuiltins: true }),
     typescript(),
     commonjs(),
-    builtins()
+    builtins(),
+    json()
   ]
 }
