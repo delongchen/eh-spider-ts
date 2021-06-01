@@ -17,7 +17,15 @@ function createRedisClient(): RedisClient {
 }
 
 export function getRedisClientInstance(): RedisClient {
-  return client ?? (client = createRedisClient())
+  if (client) {
+    if (client.connected) {
+      return client
+    } else {
+      client.quit()
+    }
+  }
+
+  return (client = createRedisClient())
 }
 
 export async function closeClient() {
@@ -51,10 +59,12 @@ const addToSet = handleWithPromise('sadd')
 const del = handleWithPromise('del')
 const diffSet = handleWithPromise('sdiff')
 const addToList = handleWithPromise('lpush')
+const getAllList = handleWithPromise('lrange')
 
 export {
   addToSet,
   del,
   diffSet,
-  addToList
+  addToList,
+  getAllList
 }
