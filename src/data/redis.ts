@@ -6,7 +6,7 @@ import {
 
 
 const options: ClientOpts = {
-  host: 'localhost',
+  host: '192.168.1.107',
   port: 6379
 }
 

@@ -1,8 +1,19 @@
 import { startEhSpider } from './service/eh'
 import { app, finalRouter } from "./service/koa";
+import { EhHTMLParser } from './parser/EhHTMLParser'
+import { getEhPopularPage } from "./requests/util";
+import { closeClient } from './data/redis'
 
 
-startEhSpider()
+function start() {
+  startEhSpider().then(() => console.log('end'))
+  finalRouter()
+  app.listen(11451)
+}
 
-finalRouter()
-app.listen(11451)
+getEhPopularPage()
+  .then(html => new EhHTMLParser(html).parse())
+  .then(items => {
+    console.log(items)
+  })
+  .then(closeClient)

@@ -1,6 +1,57 @@
-import {load} from 'cheerio'
 import {EhTag, EhPublished, EhTitle, EhItem, EhUploader} from '../types/eh'
+import { Parser, CE } from '../types/Parser'
 
+export class EhHTMLParser extends Parser<EhItem[]>{
+  private parseTitle(td: CE): EhTitle {
+    const { attr, text, $ } = this.createUtilApi(td)
+
+    return {
+      link: attr('a', 'href'),
+      title: text('.glink'),
+      tags: $('.gt', td)
+        .map((i, el) => $(el).text())
+        .get()
+    }
+  }
+
+  private parsePublished(td: CE): EhPublished {
+    const { attr, text } = this.createUtilApi(td)
+    const id: number = +attr('.glcut', 'id').slice(2)
+
+    const result: EhPublished = {
+      imgSrc: attr('.glthumb img', 'data-src'),
+      download: attr('.gldown a', 'href'),
+      time: new Date(text(`#posted_${id}`)).getTime(),
+      mark: mark(attr('.ir', 'style')),
+      id
+    }
+
+    return result
+  }
+
+  private parseUploader(td: CE): EhUploader {
+    return {
+      up: this.$('a', td).text(),
+      pages: 0
+    }
+  }
+
+  parse() {
+    const { $ } = this
+
+    return $('tr').map((i, el): EhItem => {
+      const tag: string = $('.gl1c>.cn', el).text()
+
+      return tag.length !== 0 ? ({
+        tag: tag as EhTag,
+        published: this.parsePublished($('.gl2c', el)),
+        title: this.parseTitle($('.gl3c', el)),
+        uploader: this.parseUploader($('.gl4c', el)),
+        getTime: Date.now()
+      }) : null
+    }).get()
+  }
+}
 
 function mark(style: string): number {
   if (!style) return undefined
@@ -12,53 +63,4 @@ function mark(style: string): number {
   })
   const m = result['background-position']
   return m && (5 + (parseInt(m.split(' ')[0]) / 16))
-}
-
-export function parseEhPopularPage(html: string): EhItem[] {
-  const $ = load(html)
-
-  function parseTitle(td): EhTitle {
-    return {
-      link: $('a', td).attr('href'),
-      title: $('.glink', td).text(),
-      tags: $('.gt', td).map(function () {
-        return $(this).text()
-      }).get()
-    }
-  }
-
-  function parsePublished(td): EhPublished {
-    const id: number = +$('.glcut', td).attr('id').slice(2)
-
-    const result: EhPublished = {
-      imgSrc: $('.glthumb img', td).attr('data-src'),
-      download: $('.gldown a', td).attr('href'),
-      time: new Date($(`#posted_${id}`, td).text()).getTime(),
-      mark: mark($('.ir', td).attr('style')),
-      id
-    }
-
-    return result
-  }
-
-  function parseUploader(td): EhUploader {
-    return {
-      up: $('a', td).text(),
-      pages: 0
-    }
-  }
-
-  return $('tr')
-    .map((i, el): EhItem => {
-      const tag: string = $('td.gl1c>.cn', el).text()
-
-      return tag.length !== 0 ? ({
-        tag: tag as EhTag,
-        published: parsePublished($('.gl2c', el)),
-        title: parseTitle($('.gl3c', el)),
-        uploader: parseUploader($('.gl4c', el)),
-        getTime: Date.now()
-      }) : null
-
-    }).get()
 }

@@ -1,12 +1,12 @@
-import {parseEhPopularPage} from "../parser/EhHTMLParser";
 import {getEhPopularPage} from "../requests/util";
 import {addEhItemsToRedis} from "../data/eh";
+import { EhHTMLParser } from '../parser/EhHTMLParser'
 
 import { context } from "./context";
 import { sleepTick } from "../util";
 
 const jetOne = () => getEhPopularPage()
-  .then(parseEhPopularPage)
+  .then(html => new EhHTMLParser(html).parse())
   .then(addEhItemsToRedis)
 
 export async function startEhSpider() {

@@ -15,7 +15,7 @@ headers.append('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,
 headers.append('Accept-Encoding', 'gzip, deflate, br')
 headers.append('Accept-Language', 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6')
 
-const reqOpt: RequestInit = {
+export const reqOpt: RequestInit = {
   headers,
   timeout: 10000
 }

@@ -37,3 +37,15 @@ export type EhItem = {
   uploader: EhUploader,
   getTime: number
 }
+
+export type EhDownloadInfo = {
+  posted: number,
+  size: {
+    n: number,
+    t: string
+  },
+  seeds: number,
+  downloads: number,
+  up: string,
+  link: string
+}
