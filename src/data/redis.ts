@@ -5,10 +5,7 @@ import {
 } from 'redis'
 
 
-const options: ClientOpts = {
-  host: '192.168.1.107',
-  port: 6379
-}
+const options = require("../config/redis.config.json") as ClientOpts
 
 let client: RedisClient = null
 

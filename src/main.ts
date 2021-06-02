@@ -11,9 +11,4 @@ function start() {
   app.listen(11451)
 }
 
-getEhPopularPage()
-  .then(html => new EhHTMLParser(html).parse())
-  .then(items => {
-    console.log(items)
-  })
-  .then(closeClient)
+start()
