@@ -11,6 +11,9 @@ router.get('/ehs', async (context) => {
     const items = await getAllList('eh', 0, -1) as string[]
     itemsCache = new Buffer(`[${items.join(',')}]`)
     updateTime =  reqTime + 3600 * 1000
+    context.status = 200
+  } else {
+    context.status = 304
   }
   context.set('Content-Type', 'application/json')
   context.set('Access-Control-Allow-Origin', '*')
