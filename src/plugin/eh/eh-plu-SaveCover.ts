@@ -4,6 +4,7 @@ import {defReqOpt} from '../../requests/def'
 import {createWriteStream} from "fs";
 
 const savePath = 'C:\\Users\\cdlfg\\WebstormProjects\\eh-spider-ts\\out\\cover'
+const savePathPi = '/usr/share/nginx/html/eh/cover'
 
 export const saveCover: EhPlugin = (items) => {
   const ps = items.map(ehItem => {
@@ -15,7 +16,7 @@ export const saveCover: EhPlugin = (items) => {
 
     return fetch(imgSrc, defReqOpt)
       .then(res => {
-        const writeStream = createWriteStream(`${savePath}\\${id}.jpg`)
+        const writeStream = createWriteStream(`${savePathPi}\\${id}.jpg`)
         writeStream.on('finish', () => {
           console.log(`saved ${id}`)
         })

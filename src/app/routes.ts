@@ -9,7 +9,7 @@ router.get('/ehs', async (context) => {
   const reqTime = Date.now()
   if (itemsCache === null || updateTime < reqTime) {
     const items = await getAllList('eh', 0, -1) as string[]
-    itemsCache = new Buffer(`[${items.join(',')}]`)
+    itemsCache = Buffer.alloc(0, `[${items.join(',')}]`)
     updateTime =  reqTime + 3600 * 1000
     context.status = 200
   } else {
