@@ -1,5 +1,6 @@
 import * as Koa from 'koa'
 import * as Router from "koa-router"
+import { createServer } from 'http'
 
 const app = new Koa
 const router = new Router
@@ -10,15 +11,19 @@ type KoaConfig = {
   port: number
 }
 
-const config = require('../config/app.config.json') as KoaConfig
+export const koaConfig = require('../config/app.config.json') as KoaConfig
 
 function finalRouter() {
   app.use(router.routes())
     .use(router.allowedMethods())
 }
 
+finalRouter()
+
+const httpServer = createServer(app.callback())
+
 export {
-  finalRouter,
   app,
-  router
+  router,
+  httpServer
 }
