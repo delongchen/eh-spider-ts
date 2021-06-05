@@ -2,11 +2,15 @@ import {EhPlugin} from './EhPlugin'
 import fetch from "node-fetch";
 import {defReqOpt} from '../../requests/def'
 import {createWriteStream} from "fs";
+import { addToSet } from "../../data/redis";
 
 const savePath = 'C:\\Users\\cdlfg\\WebstormProjects\\eh-spider-ts\\out\\cover'
 const savePathPi = '/usr/share/nginx/html/eh/cover'
 
 export const saveCover: EhPlugin = (items) => {
+  const saved: string[] = []
+  const failed: string[] = []
+
   const ps = items.map(ehItem => {
     const {
       published: {
@@ -18,13 +22,13 @@ export const saveCover: EhPlugin = (items) => {
       .then(res => {
         const writeStream = createWriteStream(`${savePathPi}\\${id}.jpg`)
         writeStream.on('finish', () => {
-          console.log(`saved ${id}`)
+          saved.push(id + '')
         })
         res.body.pipe(writeStream)
         return ehItem
       })
       .catch(reason => {
-        console.log(`fetch error ${id}`)
+        failed.push(id + '')
         return ehItem
       })
   })
@@ -37,4 +41,13 @@ export const saveCover: EhPlugin = (items) => {
         console.log('fuck it')
       })
   }, Promise.resolve())
+    .then(() => addToSet('ehCovers', saved))
+    .then(() => {
+      saved.forEach(console.log)
+      console.log('saved')
+      if (failed.length) {
+        failed.forEach(console.log)
+        console.log('failed')
+      }
+    })
 }
