@@ -1,16 +1,15 @@
 import { router } from '../service/koa'
 import { getAllList } from "../data/redis";
+import {context as appContext} from '../service/context'
 
 
 let itemsCache: Buffer = null
-let updateTime: number = Date.now() + 3600 * 1000
 
 router.get('/ehs', async (context) => {
-  const reqTime = Date.now()
-  if (itemsCache === null || updateTime < reqTime) {
+  if (appContext.updated) {
     const items = await getAllList('eh', 0, -1) as string[]
-    itemsCache = new Buffer(`[${items.join(',')}]`)
-    updateTime =  reqTime + 3600 * 1000
+    itemsCache = Buffer.alloc(0, `[${items.join(',')}]`)
+    appContext.updated = false
     context.status = 200
   } else {
     context.status = 304

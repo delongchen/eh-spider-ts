@@ -16,6 +16,7 @@ export async function startEhSpider() {
       console.log(err)
       context.err = true
     })
+    context.updated = true
     await sleepTick(60 * 60)
   }
 }
