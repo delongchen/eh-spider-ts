@@ -1,22 +1,18 @@
 import { router } from '../service/koa'
 import { getAllList } from "../data/redis";
+import {context} from '../service/context'
 
 
 let itemsCache: Buffer = null
-let updateTime: number = Date.now() + 3600 * 1000
 
-router.get('/ehs', async (context) => {
-  const reqTime = Date.now()
-  if (itemsCache === null || updateTime < reqTime) {
+router.get('/ehs', async (con) => {
+  if (context.updated) {
     const items = await getAllList('eh', 0, -1) as string[]
-    itemsCache = Buffer.alloc(0, `[${items.join(',')}]`)
-    updateTime =  reqTime + 3600 * 1000
-    context.status = 200
-  } else {
-    context.status = 304
+    itemsCache = Buffer.from(`[${items.join(',')}]`)
+    context.updated = false
   }
-  context.set('Content-Type', 'application/json')
-  context.set('Access-Control-Allow-Origin', '*')
-  context.set('Cache-Control', 'no-cache, max-age=0')
-  context.body = itemsCache
+  con.set('Content-Type', 'application/json')
+  con.set('Access-Control-Allow-Origin', '*')
+  con.set('Cache-Control', 'no-cache, max-age=0')
+  con.body = itemsCache
 })
