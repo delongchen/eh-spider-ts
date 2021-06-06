@@ -3,6 +3,7 @@ import fetch from "node-fetch";
 import {defReqOpt} from '../../requests/def'
 import {createWriteStream} from "fs";
 import { addToSet } from "../../data/redis";
+import {sleep} from '../../util'
 
 const savePath = 'C:\\Users\\cdlfg\\WebstormProjects\\eh-spider-ts\\out\\cover'
 const savePathPi = '/usr/share/nginx/html/eh/cover'
@@ -43,10 +44,10 @@ export const saveCover: EhPlugin = (items) => {
   }, Promise.resolve())
     .then(() => addToSet('ehCovers', saved))
     .then(() => {
-      saved.forEach(console.log)
+      saved.forEach(name => console.log(name))
       console.log('saved')
       if (failed.length) {
-        failed.forEach(console.log)
+        failed.forEach(name => console.log(name))
         console.log('failed')
       }
     })
