@@ -4,7 +4,7 @@ import { EhPlugin } from "./EhPlugin";
 import { saveCover } from "./eh-plu-SaveCover";
 
 const plugins: EhPlugin[] = [
-  saveCover
+  //saveCover
 ]
 
 export async function runEhPlugins(items: EhItem[]) {

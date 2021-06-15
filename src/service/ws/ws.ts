@@ -1,9 +1,9 @@
 import { server } from 'websocket'
-import { httpServer } from '../koa'
 import { wsRouter } from './router'
+import { Server } from 'http'
 
-const wsServer = new server({httpServer})
-
-wsRouter.attachServer(wsServer)
-
-httpServer.listen(11451)
+export function cover(httpServer: Server): server {
+  const wsServer = new server({httpServer})
+  wsRouter.attachServer(wsServer)
+  return wsServer
+}

@@ -5,7 +5,7 @@ import { createServer } from 'http'
 const app = new Koa
 const router = new Router
 
-//import '../app/routes'
+import '../app/routes'
 
 type KoaConfig = {
   port: number
