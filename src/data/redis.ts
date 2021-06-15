@@ -1,7 +1,7 @@
 import {
   ClientOpts,
   RedisClient,
-  createClient
+  createClient,
 } from 'redis'
 
 
