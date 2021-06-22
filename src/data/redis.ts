@@ -32,7 +32,6 @@ export async function closeClient() {
       resolve()
     })
   })
-  console.log('closed')
 }
 
 export function handleWithPromise(fnName: string): (...args: any) => Promise<any> {
@@ -57,11 +56,13 @@ const del = handleWithPromise('del')
 const diffSet = handleWithPromise('sdiff')
 const addToList = handleWithPromise('lpush')
 const getAllList = handleWithPromise('lrange')
+const setManyHash = handleWithPromise('hmset')
 
 export {
   addToSet,
   del,
   diffSet,
   addToList,
-  getAllList
+  getAllList,
+  setManyHash
 }

@@ -1,6 +1,4 @@
 import {context} from "./service/context";
-import {EhItem} from "./types/eh";
-import fetch from "node-fetch";
 
 export const sleep = (t: number) => new Promise(resolve => void setTimeout(resolve, t))
 

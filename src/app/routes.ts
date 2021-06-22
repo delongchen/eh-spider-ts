@@ -1,7 +1,9 @@
 import { router } from '../service/koa'
 import { getAllList } from "../data/redis";
 import {context} from '../service/context'
+import { createLogger } from 'bunyan'
 
+const log = createLogger({name: 'routes', level: 'debug'})
 
 let itemsCache: Buffer = null
 

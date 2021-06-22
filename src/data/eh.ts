@@ -1,8 +1,10 @@
 import {EhItem} from "../types/eh";
-import { addToList, del } from './redis'
+import { addToList, del, setManyHash } from './redis'
 import { getDiffSet, HISTORY } from './history'
+import { insertEhItem } from './mysql'
 
 const EH = 'eh'
+const EHT = 'eht'
 
 export async function addEhItemsToRedis(items: EhItem[]): Promise<EhItem[]> {
   const itemMap: {[k: string]: EhItem} = Object.create(null)
@@ -11,8 +13,23 @@ export async function addEhItemsToRedis(items: EhItem[]): Promise<EhItem[]> {
   const diff = await getDiffSet(Object.keys(itemMap))
 
   if (diff.length) {
-    const diffItem = diff.map(it => itemMap[it])
-    await addToList(EH, diffItem.map(it => JSON.stringify(it)))
+    const itemJSONs: string[] = []
+    const itemHash: string[] = []
+    const diffItem: EhItem[] = []
+
+    for (const i of diff) {
+      const target = itemMap[i]
+      const itemJSON = JSON.stringify(target)
+
+      itemJSONs.push(itemJSON)
+      diffItem.push(target)
+      itemHash.push(i)
+      itemHash.push(itemJSON)
+    }
+
+    await addToList(EH, itemJSONs)
+    await setManyHash(EHT, itemHash)
+    await insertEhItem(diffItem)
     console.log(`add ${diffItem.length}`)
     return diffItem
   }
