@@ -1,6 +1,6 @@
 import {closePool} from './MysqlConn'
 import { insert } from './utils'
-import {EhItem, EhTag} from "../../types/eh";
+import {EhItem} from "../../types/eh";
 
 export async function insertEhItem(records: EhItem[]) {
   const toInsert = records

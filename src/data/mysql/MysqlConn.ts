@@ -1,16 +1,10 @@
 import { createPool, PoolConnection } from 'mysql'
 import { createLogger } from 'bunyan'
 
+import config from '../../config'
+
 const log = createLogger({ name: 'MysqlConnections' })
-
-type MysqlConfig = {
-  host: string,
-  user: string,
-  password: string,
-  database: string
-}
-
-const mysqlConfig = require('../../config/mysql.config.json') as MysqlConfig
+const mysqlConfig = config.sql
 
 const mysqlConnectionPool = createPool({
   connectionLimit: 10,
@@ -19,7 +13,7 @@ const mysqlConnectionPool = createPool({
 
 export function getConnection(): Promise<PoolConnection> {
   return new Promise((resolve, reject) => {
-    log.debug('get poolConnction')
+    log.debug('get poolConnection')
     mysqlConnectionPool.getConnection((err, connection) => {
       if (err) {
         log.error('get poolConnection err')

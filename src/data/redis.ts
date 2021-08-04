@@ -1,16 +1,14 @@
 import {
-  ClientOpts,
   RedisClient,
   createClient,
 } from 'redis'
 
-
-const options = require("../config/redis.config.json") as ClientOpts
+import config from '../config'
 
 let client: RedisClient = null
 
 function createRedisClient(): RedisClient {
-  return createClient(options)
+  return createClient(config.redis)
 }
 
 export function getRedisClientInstance(): RedisClient {

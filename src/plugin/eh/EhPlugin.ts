@@ -1,3 +1,7 @@
 import {EhItem} from "../../types/eh";
 
-export type EhPlugin = (ehs: EhItem[]) => void
+export interface EhPlugin {
+  handler: (ehs: EhItem[]) => Promise<void>,
+  onErr: (err: Error, ehs: EhItem[]) => void,
+  name: string
+}

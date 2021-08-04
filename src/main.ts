@@ -1,8 +1,10 @@
 import { startEhSpider } from './service/eh'
-import { httpServer, koaConfig } from "./service/koa";
+import { httpServer } from "./service/koa";
 import { cover } from './service/ws/ws'
 import { wsRouter } from './service/ws/router'
+import config from './config'
 
+const koaConfig = config.app
 
 function start() {
   startEhSpider().then(() => console.log('end'))

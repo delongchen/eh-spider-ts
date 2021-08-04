@@ -10,3 +10,18 @@ export const sleepTick = async (n: number) => {
     await sleep(tick)
   }
 }
+
+export function sliceArrayBy<T>(array: T[], limit: number): T[][] {
+  const result: T[][] = []
+  const len = array.length
+
+  if (limit >= len) return [array]
+  else {
+    let now = 0
+    while (now < array.length)
+      result.push(array.slice(now, now += limit))
+
+    return result
+  }
+}
+

@@ -1,5 +1,5 @@
 import {getEhPopularPage} from "../requests/util";
-import {addEhItemsToRedis} from "../data/eh";
+import {getDiffItems} from "../data/eh";
 import { EhHTMLParser } from '../parser/EhHTMLParser'
 import { runEhPlugins } from "../plugin/eh";
 import { context } from "./context";
@@ -7,7 +7,7 @@ import { sleepTick } from "../util";
 
 const jetOne = () => getEhPopularPage()
   .then(html => new EhHTMLParser(html).parse())
-  .then(addEhItemsToRedis)
+  .then(getDiffItems)
   .then(runEhPlugins)
 
 export async function startEhSpider() {

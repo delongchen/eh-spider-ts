@@ -7,12 +7,6 @@ const router = new Router
 
 import '../app/routes'
 
-type KoaConfig = {
-  port: number
-}
-
-export const koaConfig = require('../config/app.config.json') as KoaConfig
-
 function finalRouter() {
   app.use(router.routes())
     .use(router.allowedMethods())

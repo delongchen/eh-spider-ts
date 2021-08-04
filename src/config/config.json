@@ -1,0 +1,17 @@
+{
+  "app": {
+    "port": 11451,
+    "coverPath": "~/Desktop/covers"
+  },
+  "sql": {
+    "host": "pi3.manjaro",
+    "user": "root",
+    "password": "root",
+    "database": "eh",
+    "port": 49153
+  },
+  "redis": {
+    "host": "pi3.manjaro",
+    "port": 49154
+  }
+}

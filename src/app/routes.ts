@@ -15,6 +15,6 @@ router.get('/ehs', async (con) => {
   }
   con.set('Content-Type', 'application/json')
   con.set('Access-Control-Allow-Origin', '*')
-  con.set('Cache-Control', 'no-cache, max-age=0')
+  con.set('Cache-Control', 'no-cache, max-age=600')
   con.body = itemsCache
 })
