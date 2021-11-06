@@ -1,4 +1,4 @@
-import {EhPlugin} from './EhPlugin'
+import {EhPlugin} from '../../types/EhPlugin'
 import {addToList} from "../../data/redis";
 
 const EH = 'eh'

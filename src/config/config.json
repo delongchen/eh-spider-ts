@@ -1,7 +1,7 @@
 {
   "app": {
     "port": 11451,
-    "coverPath": "~/Desktop/covers"
+    "coverPath": "covers"
   },
   "sql": {
     "host": "pi3.manjaro",

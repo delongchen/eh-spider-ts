@@ -2,11 +2,14 @@ import { startEhSpider } from './service/eh'
 import { httpServer } from "./service/koa";
 import { cover } from './service/ws/ws'
 import { wsRouter } from './service/ws/router'
+import { initApp } from "./core/initApp";
 import config from './config'
 
 const koaConfig = config.app
 
-function start() {
+async function start() {
+  await initApp()
+
   startEhSpider().then(() => console.log('end'))
 
   const wsServer = cover(httpServer)
@@ -17,4 +20,6 @@ function start() {
   })
 }
 
-start()
+start().then(() => {
+  console.log('-')
+})

@@ -61,6 +61,8 @@ export async function insert(table: string, values: any[]) {
   if (errItems.length) {
     const errJSONPath = `${process.cwd()}/ehs.json`
     const ehsJSON = await readFile(errJSONPath, 'utf-8')
+      .catch(() => '[]')
+
     const ehs = JSON.parse(ehsJSON) as string[]
     errItems.forEach(it => void ehs.push(it))
     await writeFile(errJSONPath, `[${ehs.join(',')}]`)

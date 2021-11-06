@@ -1,4 +1,4 @@
-import {EhPlugin} from './EhPlugin'
+import {EhPlugin} from '../../types/EhPlugin'
 import {insertEhItem} from '../../data/mysql'
 
 export const ehPluInsertToTable: EhPlugin = {

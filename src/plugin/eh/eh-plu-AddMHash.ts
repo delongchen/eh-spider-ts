@@ -1,4 +1,4 @@
-import {EhPlugin} from './EhPlugin'
+import {EhPlugin} from '../../types/EhPlugin'
 import {setManyHash} from '../../data/redis'
 
 const EHT = 'eht'

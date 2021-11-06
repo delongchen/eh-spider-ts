@@ -1,4 +1,4 @@
-import {EhItem} from "../../types/eh";
+import {EhItem} from "../types/eh";
 
 export interface EhPlugin {
   handler: (ehs: EhItem[]) => Promise<void>,

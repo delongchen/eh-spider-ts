@@ -1,5 +1,5 @@
 import {EhItem} from "../../types/eh";
-import { EhPlugin } from "./EhPlugin";
+import { EhPlugin } from "../../types/EhPlugin";
 
 import { saveCover } from "./eh-plu-SaveCover";
 import { ehPluAddMHash } from "./eh-plu-AddMHash";

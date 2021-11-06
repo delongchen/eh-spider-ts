@@ -1,4 +1,4 @@
-import {EhPlugin} from './EhPlugin'
+import {EhPlugin} from '../../types/EhPlugin'
 import fetch, {FetchError} from "node-fetch";
 import {EhItem} from "../../types/eh";
 import {sliceArrayBy, sleep} from "../../util";
